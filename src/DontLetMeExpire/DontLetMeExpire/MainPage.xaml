@@ -2,7 +2,9 @@
 <ContentPage x:Class="DontLetMeExpire.MainPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DontLetMeExpire.ViewModels"
              Padding="16"
+             x:DataType="vm:MainViewModel"
              BackgroundColor="#f5f7fa">
     <ScrollView>
         <Grid ColumnDefinitions="*,*"
@@ -23,7 +25,7 @@
                            FontAttributes="Bold"
                            FontSize="20"
                            HorizontalOptions="End"
-                           Text="8" />
+                           Text="{Binding StockCount}" />
                     <!--  Anzeige der Beschreibung  -->
                     <Label Grid.Row="1"
                            Grid.Column="0"
@@ -48,7 +50,7 @@
                            FontAttributes="Bold"
                            FontSize="20"
                            HorizontalOptions="End"
-                           Text="3"
+                           Text="{Binding ExpiringSoonCount}"
                            TextColor="Green" />
                     <!--  Anzeige der Beschreibung  -->
                     <Label Grid.Row="1"
@@ -73,7 +75,7 @@
                            FontAttributes="Bold"
                            FontSize="20"
                            HorizontalOptions="End"
-                           Text="3"
+                           Text="{Binding ExpiresTodayCount}"
                            TextColor="Orange" />
                     <!--  Anzeige der Beschreibung  -->
                     <Label Grid.Row="1"
@@ -98,7 +100,7 @@
                            FontAttributes="Bold"
                            FontSize="20"
                            HorizontalOptions="End"
-                           Text="3"
+                           Text="{Binding ExpiredCount}"
                            TextColor="Red" />
                     <!--  Anzeige der Beschreibung  -->
                     <Label Grid.Row="1"
