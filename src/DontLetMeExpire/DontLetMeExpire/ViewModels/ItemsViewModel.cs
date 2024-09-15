@@ -1,5 +1,6 @@
 ﻿using DontLetMeExpire.Models;
 using DontLetMeExpire.Services;
+using DontLetMeExpire.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,12 +14,17 @@ namespace DontLetMeExpire.ViewModels
     {
         private IItemService _itemService;
         private IStorageLocationService _storageLocationService;
+        private INavigationService _navigationService;
 
-        public ItemsViewModel(IItemService itemService, IStorageLocationService storageLocationService)
+        public ItemsViewModel(IItemService itemService, IStorageLocationService storageLocationService, INavigationService navigationService)
         {
             _itemService = itemService;
             _storageLocationService = storageLocationService;
+            _navigationService = navigationService;
+            NavigateToDetailsCommand = new Command<Item>(async (item) => await NavigateToDetails(item));
         }
+
+        
 
         public ObservableCollection<Item> Items { get; set; } = new();
 
@@ -28,6 +34,17 @@ namespace DontLetMeExpire.ViewModels
         {
             get => _title;
             set => SetProperty(ref _title, value);
+        }
+
+        public Command<Item> NavigateToDetailsCommand { get; set; }
+
+        private async Task NavigateToDetails(Item? item)
+        {
+            var navigationParams = new Dictionary<string, object>
+            {
+                { "ItemId", item?.Id }
+            };
+            await _navigationService.GoToAsync(nameof(ItemPage), navigationParams);
         }
 
 
