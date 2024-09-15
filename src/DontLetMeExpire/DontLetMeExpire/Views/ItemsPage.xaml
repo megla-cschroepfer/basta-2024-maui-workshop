@@ -25,7 +25,7 @@
                             BackgroundColor="AliceBlue"
                             StrokeShape="RoundRectangle 45"
                             StrokeThickness="0">
-                        <Image Source="dotnet_bot.png" />
+                        <Image Source="{Binding Image, TargetNullValue='no_image.png'}" />
                     </Border>
                     <!--  Name des Lagerorts  -->
                     <Label Grid.Column="1" FontAttributes="Bold" Text="{Binding Name}" />
@@ -47,11 +47,14 @@
                            HorizontalOptions="End"
                            Text="›"
                            VerticalOptions="Center" />
-                    <Line Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                          Stroke="DarkGray" StrokeThickness="1"
+                    <Line Grid.Row="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Stroke="DarkGray"
+                          StrokeThickness="1"
                           X2="{Binding Width, Source={RelativeSource Self}}"
                           Y1="4"
-                          Y2="4"/>
+                          Y2="4" />
                 </Grid>
             </DataTemplate>
         </CollectionView.ItemTemplate>
