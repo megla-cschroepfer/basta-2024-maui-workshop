@@ -11,7 +11,7 @@ namespace DontLetMeExpire.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private int _stockCount;
-        private DummyItemService _itemService = new DummyItemService();
+        private IItemService _itemService;
 
         public int StockCount
         {
@@ -47,8 +47,9 @@ namespace DontLetMeExpire.ViewModels
            return Task.CompletedTask;
         }
 
-        public MainViewModel()
+        public MainViewModel(IItemService itemService)
         {
+            _itemService = itemService;
             NavigateToAddItemCommand = new Command(async () => await NavigateToAddItem());
         }
 
