@@ -26,6 +26,7 @@ namespace DontLetMeExpire
             builder.Services.AddSingleton<IStorageLocationService, DummyStorageLocationService>();
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
 
             return builder.Build();
         }
