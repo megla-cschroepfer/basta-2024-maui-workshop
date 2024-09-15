@@ -38,7 +38,7 @@ namespace DontLetMeExpire.ViewModels
         }
 
         private int _expiredCount;
-        
+
 
         public int ExpiredCount
         {
@@ -47,18 +47,64 @@ namespace DontLetMeExpire.ViewModels
         }
 
         private IEnumerable<StorageLocationWithItemCount> _storageLocations = [];
-        public IEnumerable<StorageLocationWithItemCount> StorageLocations { get => _storageLocations; set => SetProperty( ref _storageLocations, value); }
+        public IEnumerable<StorageLocationWithItemCount> StorageLocations { get => _storageLocations; set => SetProperty(ref _storageLocations, value); }
         public ICommand NavigateToAddItemCommand { get; }
 
         private async Task NavigateToAddItem()
         {
-           await _navigationService.GoToAsync(nameof(ItemPage));
+            await _navigationService.GoToAsync(nameof(ItemPage));
+        }
+
+        public ICommand NavigateToStockCommand { get; }
+        private async Task NavigateToStock()
+        {
+            await NavigateToItemsPage("Stock");
+        }
+
+        public ICommand NavigateToExpiringSoonCommand { get; }
+        private async Task NavigateToExpiringSoon()
+        {
+            await NavigateToItemsPage("ExpiringSoon");
+        }
+
+        public ICommand NavigateToExpiresTodayCommand { get; }
+        private async Task NavigateToExpiresToday()
+        {
+            await NavigateToItemsPage("ExpiresToday");
+        }
+
+        public ICommand NavigateToExpiredCommand { get; }
+        private async Task NavigateToExpired()
+        {
+            await NavigateToItemsPage("Expired");
+        }
+        public ICommand NavigateToLocationCommand { get; set; }
+        private async Task NavigateToLocation(string locationId)
+        {
+            await NavigateToItemsPage("Location", locationId);
+        }
+
+
+        private async Task NavigateToItemsPage(string displayMode, string? locationId = null)
+        {
+            var navigationParams = new Dictionary<string, object>
+            {
+                { "DisplayMode", displayMode },
+                { "LocationId", locationId }
+            };
+            await _navigationService.GoToAsync(nameof(ItemsPage), navigationParams);
         }
 
         public MainViewModel(IItemService itemService, IStorageLocationService storageLocationService, INavigationService navigationService)
         {
             _itemService = itemService;
             NavigateToAddItemCommand = new Command(async () => await NavigateToAddItem());
+            NavigateToStockCommand = new Command(async () => await NavigateToStock());
+            NavigateToExpiringSoonCommand = new Command(async () => await NavigateToExpiringSoon());
+            NavigateToExpiresTodayCommand = new Command(async () => await NavigateToExpiresToday());
+            NavigateToExpiredCommand = new Command(async () => await NavigateToExpired());
+            NavigateToLocationCommand = new Command<string>(async (locationId) => await NavigateToLocation(locationId));
+
             _navigationService = navigationService;
             _storageLocationService = storageLocationService;
         }

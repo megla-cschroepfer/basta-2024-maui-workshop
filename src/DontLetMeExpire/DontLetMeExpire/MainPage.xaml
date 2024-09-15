@@ -17,6 +17,9 @@
                     Grid.Column="0"
                     BackgroundColor="White"
                     StrokeShape="RoundRectangle 8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToStockCommand}" />
+                </Border.GestureRecognizers>
                 <Grid Padding="8" ColumnDefinitions="*,*" RowDefinitions="auto,*">
                     <!--  Platzhalterbild in der ersten Zeile, ersten Spalte  -->
                     <Image HeightRequest="40" HorizontalOptions="Start" Source="dotnet_bot.png" />
@@ -42,6 +45,9 @@
                     BackgroundColor="White"
                     Stroke="Green"
                     StrokeShape="RoundRectangle 8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToExpiringSoonCommand}" />
+                </Border.GestureRecognizers>
                 <Grid Padding="8" ColumnDefinitions="*,*" RowDefinitions="auto,*">
                     <!--  Platzhalterbild in der ersten Zeile, ersten Spalte  -->
                     <Image HeightRequest="40" HorizontalOptions="Start" Source="dotnet_bot.png" />
@@ -67,6 +73,9 @@
                     BackgroundColor="White"
                     Stroke="Orange"
                     StrokeShape="RoundRectangle 8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToExpiresTodayCommand}" />
+                </Border.GestureRecognizers>
                 <Grid Padding="8" ColumnDefinitions="*,*" RowDefinitions="auto,*">
                     <!--  Platzhalterbild in der ersten Zeile, ersten Spalte  -->
                     <Image HeightRequest="40" HorizontalOptions="Start" Source="dotnet_bot.png" />
@@ -92,6 +101,9 @@
                     BackgroundColor="White"
                     Stroke="Red"
                     StrokeShape="RoundRectangle 8">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToExpiredCommand}" />
+                </Border.GestureRecognizers>
                 <Grid Padding="8" ColumnDefinitions="*,*" RowDefinitions="auto,*">
                     <!--  Platzhalterbild in der ersten Zeile, ersten Spalte  -->
                     <Image HeightRequest="40" HorizontalOptions="Start" Source="dotnet_bot.png" />
@@ -135,6 +147,9 @@
                             <Border.Shadow>
                                 <Shadow Opacity="0.2" Radius="4" Offset="0,4" />
                             </Border.Shadow>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=NavigateToLocationCommand}" CommandParameter="{Binding Id}" />
+                            </Border.GestureRecognizers>
                             <Grid Padding="8"
                                   ColumnDefinitions="48, *, 24"
                                   ColumnSpacing="8"
