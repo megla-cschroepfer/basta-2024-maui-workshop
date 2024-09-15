@@ -5,11 +5,12 @@ namespace DontLetMeExpire.Services;
 public class DummyStorageLocationService : IStorageLocationService
 {
     private readonly IItemService _itemService;
-    private readonly List<StorageLocation> _storageLocations = [];
+    private readonly List<StorageLocation> _storageLocations;
 
     public DummyStorageLocationService(IItemService itemService)
     {
         _itemService = itemService;
+        _storageLocations = [.. DummyData.Locations];
     }
 
     public Task<IEnumerable<StorageLocation>> GetAsync()

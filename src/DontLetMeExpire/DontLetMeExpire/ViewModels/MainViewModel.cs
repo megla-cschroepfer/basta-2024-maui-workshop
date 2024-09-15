@@ -1,4 +1,5 @@
-﻿using DontLetMeExpire.Services;
+﻿using DontLetMeExpire.Models;
+using DontLetMeExpire.Services;
 using DontLetMeExpire.Views;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace DontLetMeExpire.ViewModels
     {
         private int _stockCount;
         private IItemService _itemService;
+        private IStorageLocationService _storageLocationService;
         private INavigationService _navigationService;
 
         public int StockCount
@@ -36,12 +38,16 @@ namespace DontLetMeExpire.ViewModels
         }
 
         private int _expiredCount;
+        
+
         public int ExpiredCount
         {
             get => _expiredCount;
             set => SetProperty(ref _expiredCount, value);
         }
 
+        private IEnumerable<StorageLocationWithItemCount> _storageLocations = [];
+        public IEnumerable<StorageLocationWithItemCount> StorageLocations { get => _storageLocations; set => SetProperty( ref _storageLocations, value); }
         public ICommand NavigateToAddItemCommand { get; }
 
         private async Task NavigateToAddItem()
@@ -49,19 +55,24 @@ namespace DontLetMeExpire.ViewModels
            await _navigationService.GoToAsync(nameof(ItemPage));
         }
 
-        public MainViewModel(IItemService itemService, INavigationService navigationService)
+        public MainViewModel(IItemService itemService, IStorageLocationService storageLocationService, INavigationService navigationService)
         {
             _itemService = itemService;
             NavigateToAddItemCommand = new Command(async () => await NavigateToAddItem());
             _navigationService = navigationService;
+            _storageLocationService = storageLocationService;
         }
 
         public async Task InitializeAsync()
         {
+            var locations = await _storageLocationService.GetWithItemCountAsync();
+            StorageLocations = locations;
+
+
             StockCount = (await _itemService.GetAsync()).Count();
             ExpiringSoonCount = (await _itemService.GetExpiresSoonAsync()).Count(); ;
             ExpiresTodayCount = (await _itemService.GetExpiresTodayAsync()).Count(); ;
-            ExpiredCount = (await _itemService.GetExpiredAsync()).Count(); ;
+            ExpiredCount = (await _itemService.GetExpiredAsync()).Count();
         }
 
     }
