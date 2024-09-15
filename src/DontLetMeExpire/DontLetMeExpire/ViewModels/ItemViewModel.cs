@@ -1,4 +1,5 @@
 ﻿using DontLetMeExpire.Models;
+using DontLetMeExpire.OpenFoodFacts;
 using DontLetMeExpire.Services;
 using System.Collections.ObjectModel;
 
@@ -16,18 +17,22 @@ public class ItemViewModel : ViewModelBase
     private readonly IItemService _itemService;
     private readonly INavigationService _navigationService;
     private readonly IStorageLocationService _storageLocationService;
+    private readonly IOpenFoodFactsApiClient _openFoodFactsApiClient;
 
 
     public ItemViewModel(INavigationService navigationService,
                           IStorageLocationService storageLocationService,
-                          IItemService itemService)
+                          IItemService itemService,
+                          IOpenFoodFactsApiClient openFoodFactsApiClient)
     {
         SaveCommand = new Command(async () => await SaveAsync());
         DeletePhotoCommand = new Command(DeletePhoto);
         TakePhotoCommand = new Command(async () => await TakePhoto());
+        SearchBarcodeCommand = new Command(async () => await SearchBarcode());
         _navigationService = navigationService;
         _storageLocationService = storageLocationService;
         _itemService = itemService;
+        _openFoodFactsApiClient = openFoodFactsApiClient;
     }
 
     public ObservableCollection<StorageLocation> StorageLocations { get; set; } = [];
@@ -36,6 +41,15 @@ public class ItemViewModel : ViewModelBase
 
     public Command TakePhotoCommand { get; private set; }
     public Command DeletePhotoCommand { get; private set; }
+
+    public Command SearchBarcodeCommand { get; private set; }
+
+    private string _searchText;
+    public string SearchText
+    {
+        get => _searchText;
+        set => SetProperty(ref _searchText, value);
+    }
 
     public string Title
     {
@@ -156,6 +170,28 @@ public class ItemViewModel : ViewModelBase
         }
     }
 
+    private async Task SearchBarcode()
+    {
+        var response = await _openFoodFactsApiClient.GetProductByCodeAsync(SearchText);
+        if (response is { Status: 1, Product: not null })
+        {
+            Name = response.Product.ProductName!;
+            if (!string.IsNullOrEmpty(response.Product.ImageUrl))
+            {
+                var fileName = $"{response.Code}.jpg";
+                var localFilePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+                // Prüfen , ob das Bild bereits heruntergeladen wurde
+                if (!File.Exists(localFilePath))
+                {
+                    // Bild herunterladen
+                    var imageStream = await _openFoodFactsApiClient.DownloadImage(response.Product.ImageUrl);
+                    await File.WriteAllBytesAsync(localFilePath, imageStream);
+                }
+                Image = localFilePath;
+            }
+        }
+    }
     /// <summary>
     /// Speichert das Element asynchron.
     /// </summary>
