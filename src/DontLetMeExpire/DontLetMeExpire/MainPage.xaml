@@ -117,10 +117,46 @@
                    Text="Meine Lagerorte" />
 
             <!--  Platzhalter für Lagerorte  -->
-            <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2" Spacing="8">
-                <BoxView BackgroundColor="LightGray" HeightRequest="50" />
-                <BoxView BackgroundColor="LightGray" HeightRequest="50" />
-                <BoxView BackgroundColor="LightGray" HeightRequest="50" />
+            <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2" Padding="2" Spacing="8">
+                <Border StrokeShape="RoundRectangle 16" StrokeThickness="0" BackgroundColor="White">
+                    <Border.Shadow>
+                        <Shadow Opacity="0.2" Radius="4" Offset="0,4" />
+                    </Border.Shadow>
+                    <Grid Padding="8" ColumnDefinitions="48,*,24" RowDefinitions="24,24" ColumnSpacing="8">
+                        <Border Grid.RowSpan="2" BackgroundColor="AliceBlue" StrokeThickness="0" StrokeShape="RoundRectangle 45">
+                            <Image Source="dotnet_bot.png" />
+                        </Border>
+                        <Label Grid.Column="1" Text="Gefrierschrank" FontAttributes="Bold" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="4 Einträge" TextColor="DarkGray"/>
+                        <Label Grid.Column="2" Grid.RowSpan="2" Text="›" VerticalOptions="Center" FontSize="36" HorizontalOptions="End" Margin="0,0,8,0"/>
+                    </Grid>
+                </Border>
+                <Border StrokeShape="RoundRectangle 16" StrokeThickness="0" BackgroundColor="White">
+                    <Border.Shadow>
+                        <Shadow Opacity="0.2" Radius="4" Offset="0,4" />
+                    </Border.Shadow>
+                    <Grid Padding="8" ColumnDefinitions="48,*,24" RowDefinitions="24,24" ColumnSpacing="8">
+                        <Border Grid.RowSpan="2" BackgroundColor="AliceBlue" StrokeThickness="0" StrokeShape="RoundRectangle 45">
+                            <Image Source="dotnet_bot.png" />
+                        </Border>
+                        <Label Grid.Column="1" Text="Kühlschrank" FontAttributes="Bold" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="4 Einträge" TextColor="DarkGray"/>
+                        <Label Grid.Column="2" Grid.RowSpan="2" Text="›" VerticalOptions="Center" FontSize="36" HorizontalOptions="End" Margin="0,0,8,0"/>
+                    </Grid>
+                </Border>
+                <Border StrokeShape="RoundRectangle 16" StrokeThickness="0" BackgroundColor="White">
+                    <Border.Shadow>
+                        <Shadow Opacity="0.2" Radius="4" Offset="0,4" />
+                    </Border.Shadow>
+                    <Grid Padding="8" ColumnDefinitions="48,*,24" RowDefinitions="24,24" ColumnSpacing="8">
+                        <Border Grid.RowSpan="2" BackgroundColor="AliceBlue" StrokeThickness="0" StrokeShape="RoundRectangle 45">
+                            <Image Source="dotnet_bot.png" />
+                        </Border>
+                        <Label Grid.Column="1" Text="Vorratsschrank" FontAttributes="Bold" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="2 Einträge" TextColor="DarkGray"/>
+                        <Label Grid.Column="2" Grid.RowSpan="2" Text="›" VerticalOptions="Center" FontSize="36" HorizontalOptions="End" Margin="0,0,8,0"/>
+                    </Grid>
+                </Border>
             </VerticalStackLayout>
 
             <!--  Buttons  -->
