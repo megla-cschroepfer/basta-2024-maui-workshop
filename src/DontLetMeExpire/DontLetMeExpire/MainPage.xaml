@@ -10,8 +10,20 @@
               RowDefinitions="100,100,auto,*,48"
               RowSpacing="16">
             <!--  Platzhalter für Kacheln  -->
-            <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="DarkGray" />
-            <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="DarkGreen" />
+            <Border StrokeShape="RoundRectangle 8" BackgroundColor="White">
+                <Grid Padding="8" ColumnDefinitions="*,*" RowDefinitions="auto,*">
+                    <Image Source="dotnet_bot.png" HeightRequest="40" HorizontalOptions="Start" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="8" FontSize="20" FontAttributes="Bold" HorizontalOptions="End"/>
+                    <Label Grid.Row="1" FontSize="20" Grid.ColumnSpan="2" Text="Mein Vorrat" VerticalOptions="End" />
+                </Grid>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="1" Stroke="Green" StrokeShape="RoundRectangle 8" BackgroundColor="White">
+                <Grid Padding="8" ColumnDefinitions="*,*" RowDefinitions="auto,*">
+                    <Image Source="dotnet_bot.png" HeightRequest="40" HorizontalOptions="Start" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="8" FontSize="20" FontAttributes="Bold" HorizontalOptions="End"/>
+                    <Label Grid.Row="1" FontSize="20" Grid.ColumnSpan="2" Text="Mein Vorrat" VerticalOptions="End" />
+                </Grid>
+            </Border>
             <BoxView Grid.Row="1" Grid.Column="0" BackgroundColor="DarkOrange" />
             <BoxView Grid.Row="1" Grid.Column="1" BackgroundColor="DarkRed" />
 
