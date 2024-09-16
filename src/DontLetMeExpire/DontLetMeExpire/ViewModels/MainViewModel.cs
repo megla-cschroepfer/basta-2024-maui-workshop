@@ -1,4 +1,5 @@
 ﻿using DontLetMeExpire.Services;
+using DontLetMeExpire.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,9 +43,9 @@ namespace DontLetMeExpire.ViewModels
 
         public ICommand NavigateToAddItemCommand { get; }
 
-        private Task NavigateToAddItem()
+        private async Task NavigateToAddItem()
         {
-           return Task.CompletedTask;
+            await Shell.Current.GoToAsync(nameof(ItemPage));
         }
 
         public MainViewModel(IItemService itemService)

@@ -252,6 +252,7 @@
             <!--  Buttons  -->
             <Button Grid.Row="4"
                     Grid.Column="0"
+                    Command="{Binding NavigateToAddItemCommand}"
                     BackgroundColor="#3d6ddc"
                     Text="Eintrag hizufügen" />
 
